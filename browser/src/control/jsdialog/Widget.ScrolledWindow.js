@@ -114,13 +114,75 @@ function _scrolledWindowControl(parentContainer, data, builder) {
 		content.style.margin = content.scrollTop + 'px ' + margin + 'px ' + margin + 'px ' + content.scrollLeft + 'px';
 	};
 
-	if (data.user_managed_scrolling !== false)
+	if (data.user_managed_scrolling !== false) {}
 		setTimeout(updateSize, 0);
+	}
 
+	const resizeObserver = new ResizeObserver((entries) => {
+		for (const entry of entries) {
+			let target = "content";
+			if (entry.target == scrollwindow) {
+				target = "scrollWindow";
+			}
+			console.log("observer", target, entry.contentRect)
+		}
+	});
+
+	resizeObserver.observe(scrollwindow);
+	resizeObserver.observe(content);
+
+	// detect destruction of child node of content
+
+	// Options de l'observateur (quelles sont les mutations à observer)
+	var config = { attributes: true, childList: true };
+
+	var mutating = false;
+	var childs = 0;
+	// Fonction callback à éxécuter quand une mutation est observée
+	var callback = function (mutationsList) {
+	for (var mutation of mutationsList) {
+		if (mutation.type == "childList") {
+			if (mutation.removedNodes.length > 0) {
+				console.log("mutation: child removed", mutation.removedNodes);
+				mutating = true;
+			}
+			if (mutation.addedNodes.length > 0) {
+				console.log("mutation: child added", mutation.addedNodes);
+				mutating = false;
+			}
+			let prevChild = childs;
+			childs = mutation.target.childNodes.length;
+			if (childs > prevChild) {
+				window.scrollTop = lastScrollV;
+			}
+			console.log("childs", childs);
+
+		} else if (mutation.type == "attributes") {
+			console.log("mutation attribute: '" + mutation.attributeName + "' changed.");
+		}
+	}
+	};
+
+	// Créé une instance de l'observateur lié à la fonction de callback
+	var observer = new MutationObserver(callback);
+	observer.observe(content, config);
+
+	var lastScrollV = null;
+	var lastScrollH = null;
+	
 	var sendTimer = null;
 
 	if ((!noVertical && verticalSteps) || (!noHorizontal && horizontalSteps)) {
 		scrollwindow.addEventListener('scroll', function () {
+
+			if (childs == 0) {
+				console.log("ignoring scroll event", event);
+				// ignore scroll event while dom is being edited
+				//window.scrollTop = lastScrollV;
+				mutating = false;
+				return;
+			}
+			
 			// keep content at the same place on the screen
 			var scrollTop = scrollwindow.scrollTop;
 			var scrollLeft = scrollwindow.scrollLeft;
@@ -131,6 +193,7 @@ function _scrolledWindowControl(parentContainer, data, builder) {
 				content.style.width = (realContentWidth - scrollLeft + horizontalSteps) + 'px';
 			}
 
+			console.log("scroll event", event);
 			if (sendTimer)
 				clearTimeout(sendTimer);
 			sendTimer = setTimeout(function () {

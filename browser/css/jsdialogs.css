@@ -2229,8 +2229,9 @@ kbd,
 	margin: 0;
 }
 
-#DocumentPropertiesDialog #customprops .jsdialog.ui-scrollwindow {
-	max-height: min-content;
+#DocumentPropertiesDialog #customprops #CustomInfoPage > .jsdialog.ui-scrollwindow:not(.formulabar) {
+	height: 540px;
+	max-height: none;
 }
 
 #ServerAuditDialog #ServerAuditDialog-mainbox {
