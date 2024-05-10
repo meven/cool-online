@@ -1203,9 +1203,11 @@ window.app = {
 				if (L.Browser.cypressTest && isCalcTest)
 					global.enableAccessibility = false;
 
-				var accessibilityState = global.localStorage.getItem('accessibilityState') === 'true';
-				accessibilityState = accessibilityState || (L.Browser.cypressTest && !isCalcTest);
-				msg += ' accessibilityState=' + accessibilityState;
+				if (window.isLocalStorageAllowed) {
+					var accessibilityState = global.localStorage.getItem('accessibilityState') === 'true';
+					accessibilityState = accessibilityState || (L.Browser.cypressTest && !isCalcTest);
+					msg += ' accessibilityState=' + accessibilityState;
+				}
 
 				if (global.ThisIsAMobileApp) {
 					msg += ' lang=' + global.LANG;

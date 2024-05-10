@@ -1195,6 +1195,7 @@ L.Map = L.Evented.extend({
 			throw new Error('Map container is already initialized.');
 		}
 
+		/*
 		if (window.mode.isDesktop()) {
 			this._resizeDetector = L.DomUtil.create('iframe', 'resize-detector', container);
 			this._resizeDetector.title = 'Intentionally blank';
@@ -1202,11 +1203,12 @@ L.Map = L.Evented.extend({
 			this._resizeDetector.contentWindow.addEventListener('touchstart', L.DomEvent.preventDefault, {passive: false});
 			L.DomEvent.on(this._resizeDetector.contentWindow, 'contextmenu', L.DomEvent.preventDefault);
 		}
+		*/
 
 		this._fileDownloader = L.DomUtil.create('iframe', '', container);
 		L.DomUtil.setStyle(this._fileDownloader, 'display', 'none');
 
-		L.DomEvent.on(this._fileDownloader.contentWindow, 'contextmenu', L.DomEvent.preventDefault);
+		//L.DomEvent.on(this._fileDownloader.contentWindow, 'contextmenu', L.DomEvent.preventDefault);
 		L.DomEvent.addListener(container, 'scroll', this._onScroll, this);
 		container._leaflet = true;
 	},
@@ -1334,11 +1336,13 @@ L.Map = L.Evented.extend({
 
 		this._mainEvents(onOff);
 
+		/*
 		if (this.options.trackResize) {
 			var winTarget = this._resizeDetector && this._resizeDetector.contentWindow ? this._resizeDetector.contentWindow :
 				window;
 			L.DomEvent[onOff](winTarget, 'resize', this._onResize, this);
 		}
+		*/
 
 		L.DomEvent[onOff](window, 'blur', this._onLostFocus, this);
 		L.DomEvent[onOff](window, 'focus', this._onGotFocus, this);

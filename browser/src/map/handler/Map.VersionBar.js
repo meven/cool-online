@@ -20,7 +20,9 @@ L.Map.VersionBar = L.Handler.extend({
 		var viewInfo = this._map._viewInfo[docLayer._viewId];
 
 		if (viewInfo && viewInfo.userextrainfo &&
-		    viewInfo.userextrainfo.is_admin) {
+		    viewInfo.userextrainfo.is_admin &&
+			window.isLocalStorageAllowed) {
+
 			var laterDate = new Date();
 			var currentDate = new Date();
 			var timeValue = window.localStorage.getItem('InfoBarLaterDate');
@@ -39,7 +41,7 @@ L.Map.VersionBar = L.Handler.extend({
 	},
 
 	onversionbar: function (e) {
-		if (e && e.coolwsd_version) {
+		if (e && e.coolwsd_version && window.isLocalStorageAllowed) {
 			var latestVersion = e.coolwsd_version.split('.');
 			var currentVersion = app.socket.WSDServer.Version.split('.');
 			var snackbarMessage = _('Your Collabora Online server needs updating. Version %0 is available.');

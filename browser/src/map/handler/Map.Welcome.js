@@ -45,26 +45,28 @@ L.Map.Welcome = L.Handler.extend({
 	},
 
 	shouldWelcome: function() {
-		var storedVersion = localStorage.getItem('WSDWelcomeVersion');
-		var currentVersion = app.socket.WSDServer.Version;
-		var welcomeDisabledCookie = localStorage.getItem('WSDWelcomeDisabled');
-		var welcomeDisabledDate = localStorage.getItem('WSDWelcomeDisabledDate');
-		var isWelcomeDisabled = false;
+		if (window.isLocalStorageAllowed) {
+			var storedVersion = localStorage.getItem('WSDWelcomeVersion');
+			var currentVersion = app.socket.WSDServer.Version;
+			var welcomeDisabledCookie = localStorage.getItem('WSDWelcomeDisabled');
+			var welcomeDisabledDate = localStorage.getItem('WSDWelcomeDisabledDate');
+			var isWelcomeDisabled = false;
 
-		if (welcomeDisabledCookie && welcomeDisabledDate) {
-			// Check if we are stil in the same day
-			var currentDate = new Date();
-			if (welcomeDisabledDate === currentDate.toDateString())
-				isWelcomeDisabled = true;
-			else {
-				//Values expired. Clear the local values
-				localStorage.removeItem('WSDWelcomeDisabled');
-				localStorage.removeItem('WSDWelcomeDisabledDate');
+			if (welcomeDisabledCookie && welcomeDisabledDate) {
+				// Check if we are stil in the same day
+				var currentDate = new Date();
+				if (welcomeDisabledDate === currentDate.toDateString())
+					isWelcomeDisabled = true;
+				else {
+					//Values expired. Clear the local values
+					localStorage.removeItem('WSDWelcomeDisabled');
+					localStorage.removeItem('WSDWelcomeDisabledDate');
+				}
 			}
-		}
 
-		if ((!storedVersion || storedVersion !== currentVersion) && !isWelcomeDisabled) {
-			return true;
+			if ((!storedVersion || storedVersion !== currentVersion) && !isWelcomeDisabled) {
+				return true;
+			}
 		}
 
 		return false;

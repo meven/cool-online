@@ -460,7 +460,7 @@ app.definitions.Socket = L.Class.extend({
 		if (data[0] != 0x89)
 			prefix = String.fromCharCode(0x89);
 		img = 'data:image/png;base64,' + window.btoa(this._strFromUint8(prefix,data));
-		if (L.Browser.cypressTest && localStorage.getItem('image_validation_test')) {
+		if (L.Browser.cypressTest && window.isLocalStorageAllowed && localStorage.getItem('image_validation_test')) {
 			if (!window.imgDatas)
 				window.imgDatas = [];
 			window.imgDatas.push(img);

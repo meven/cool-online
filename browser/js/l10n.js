@@ -54,8 +54,11 @@ var
     if(browserless)
         return loadFromDisk(uri);
 
+	return {};
+
 	var req  = new XHR(),
 		data = {};
+
 
 	try {
 		// sadly, this has to be blocking to allow for a graceful degrading API

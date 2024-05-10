@@ -425,6 +425,7 @@
           var iframe = document.getElementById('frame');
           iframe.src = coolUrl.href;
           link.href = coolUrl.href;
+          iframe.sandbox="allow-scripts allow-presentation allow-download allow-popups";
       }
 
       // Select the app with extension.

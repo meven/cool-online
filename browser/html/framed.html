@@ -197,13 +197,14 @@
     <h3>Document frame</h3>
 
     <h4>If the frame fails to load click <a id="link">here and accept security bits</a></h4>
-    <iframe id="frame" height="1000" width="1000"></iframe>
+    <iframe id="frame" height="1000" width="1000" sandbox="allow-scripts allow-presentation allow-download allow-popups"></iframe>
 
     <!-- 127.0.0.2 allows us to test CSS issues -->
     <script>
       var uriBase = document.location.protocol + "//127.0.0.2:9980/browser/42/cool.html" + window.location.search;
       var iframe = document.getElementById("frame");
       iframe.src = uriBase + "&NotWOPIButIframe=true";
+      iframe.setAttribute("sandbox", "allow-scripts allow-presentation allow-download allow-popups");
       var msg = document.getElementById("link");
       link.href = uriBase;
     </script>
