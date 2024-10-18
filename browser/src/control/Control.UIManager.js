@@ -406,6 +406,7 @@ L.Control.UIManager = L.Control.extend({
 				app.dispatcher.dispatch('presentation');
 			}
 		});
+
 	},
 
 	initializeSidebar: function() {

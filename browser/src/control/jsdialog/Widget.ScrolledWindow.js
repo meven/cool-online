@@ -101,7 +101,9 @@ function _scrolledWindowControl(parentContainer, data, builder) {
 
 		if (!noVertical) {
 			content.style.height = (realContentHeight + verticalSteps) + 'px';
-			scrollwindow.style.height = (realContentHeight + margin) + 'px';
+			if (!scrollwindow.style.height) {
+				scrollwindow.style.height = (realContentHeight + margin) + 'px';
+			}
 		}
 		if (!noHorizontal) {
 			content.style.width = (realContentWidth + horizontalSteps) + 'px';
@@ -114,7 +116,7 @@ function _scrolledWindowControl(parentContainer, data, builder) {
 		content.style.margin = content.scrollTop + 'px ' + margin + 'px ' + margin + 'px ' + content.scrollLeft + 'px';
 	};
 
-	if (data.user_managed_scrolling !== false) {}
+	if (data.user_managed_scrolling !== false) {
 		setTimeout(updateSize, 0);
 	}
 

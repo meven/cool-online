@@ -50,7 +50,7 @@ L.ImpressTileLayer = L.CanvasTileLayer.extend({
 	},
 
 	_onContextChange(e) {
-		/*
+        /*
 			We need to check the context content for now. Because we are using this property for both context and the page kind.
 			When user modifies the content of the notes, the context is changed again. As we use context as a view mode, we shouldn't change our variable in that case.
 			We need to check if the context is something related to view mode or not.
@@ -76,6 +76,11 @@ L.ImpressTileLayer = L.CanvasTileLayer.extend({
 			this._selectedMode = e.detail.context === 'NotesPage' ? 2 : 0;
 			this._refreshTilesInBackground();
 			this._update();
+		}
+
+		if (e.detail.context.startsWit('Create Bézier curve')) {
+
+			console.log("got Bezier curve", e.detail);
 		}
 	},
 

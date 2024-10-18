@@ -1666,6 +1666,8 @@ L.CanvasTileLayer = L.Layer.extend({
 			this._map.fire('sliderenderingcomplete', {
 				success: status === 'success'
 			});
+		} else {
+			console.log("textMsg:", textMsg);
 		}
 	},
 
@@ -2498,6 +2500,7 @@ L.CanvasTileLayer = L.Layer.extend({
 		var isPureJSON = textMsg.indexOf('=') === -1 && textMsg.indexOf('{') !== -1;
 		if (isPureJSON) {
 			var json = JSON.parse(textMsg);
+			console.log("_onStateChangedMsg", isPureJSON, json);
 			// json.state as empty string is fine, for example it means no selection
 			// when json.commandName is '.uno:RowColSelCount'.
 			if (json.commandName && json.state !== undefined) {
@@ -2508,6 +2511,7 @@ L.CanvasTileLayer = L.Layer.extend({
 			var commandName = index !== -1 ? textMsg.substr(0, index) : '';
 			var state = index !== -1 ? textMsg.substr(index + 1) : '';
 			this._map.fire('commandstatechanged', {commandName : commandName, state : state});
+			//console.log("_onStateChangedMsg", isPureJSON, commandName, "state", state);
 		}
 	},
 

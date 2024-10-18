@@ -2469,6 +2469,68 @@ L.Control.NotebookbarImpress = L.Control.NotebookbarWriter.extend({
 				],
 				'vertical': 'true'
 			},
+			{
+				'id': 'toggle-bezier',
+				'type': 'bigtoolitem',
+				'text': _UNO('.uno:ToggleObjectBezierMode'),
+				'command': '.uno:ToggleObjectBezierMode',
+			},
+			{
+				'type': 'container',
+				'children': [
+					{
+						'type': 'toolbox',
+						'children': [
+							{
+								'id': 'bezier_unfilled',
+								'type': 'toolitem',
+								'text': _UNO('.uno:Bezier_Unfilled', 'presentation'),
+								'command': '.uno:Bezier_Unfilled',
+							}
+						]
+					},
+					{
+						'type': 'toolbox',
+						'children': [
+							{
+								'id': 'bezier_insert',
+								'type': 'toolitem',
+								'text': _UNO('.uno:BezierInsert'),
+								'command': '.uno:BezierInsert',
+							}
+						]
+					}
+				],
+				'vertical': 'true'
+			},
+			{
+				'type': 'container',
+				'children': [
+					{
+						'type': 'toolbox',
+						'children': [
+							{
+								'id': 'bezier_convert',
+								'type': 'toolitem',
+								'text': _UNO('.uno:BezierConvert', 'presentation'),
+								'command': '.uno:BezierConvert',
+							}
+						]
+					},
+					{
+						'type': 'toolbox',
+						'children': [
+							{
+								'id': 'bezier_move',
+								'type': 'toolitem',
+								'text': _UNO('.uno:BezierMove'),
+								'command': '.uno:BezierMove',
+							}
+						]
+					}
+				],
+				'vertical': 'true'
+			},
 		];
 
 		return this.getTabPage('Draw', content);

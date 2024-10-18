@@ -168,8 +168,8 @@ L.Control.NotebookbarBuilder = L.Control.JSDialogBuilder.extend({
 					this.map.saveState.showModifiedStatus();
 					document.getElementById('file-save').classList.add('savemodified');
 				} else {
-					document.getElementById('save').classList.remove('savemodified');
-					document.getElementById('file-save').classList.remove('savemodified');
+					//document.getElementById('save').classList.remove('savemodified');
+					//document.getElementById('file-save').classList.remove('savemodified');
 				}
 			}
 		}
