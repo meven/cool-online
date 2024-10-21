@@ -47,6 +47,18 @@ L.ImpressTileLayer = L.CanvasTileLayer.extend({
 		this._partWidthTwips = 0; // Single part's width. These values are equal to _docWidthTwips & _docHeightTwips when app.file.partBasedView is true.
 
 		app.events.on('contextchange', this._onContextChange.bind(this));
+
+        app.map.on('commandstatechanged', (function (e) {
+            console.log("commandstatechanged received", e);
+            if (e.commandName.startsWith(".uno:Context") && e.state.startsWith("Create Bézier curve")) {
+                //Create Bézier curve (dx=1.38 dy=-3.74  l=3.99 69.78°)
+                var param = e.state;
+                param.slice(10, -1);
+                console.log("commandstatechanged: create bezier", e.state, "param:", param);
+                // get canvas
+                // use https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo
+            }
+        }).bind(this), this);
 	},
 
 	_onContextChange(e) {
